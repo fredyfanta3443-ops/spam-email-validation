@@ -1,0 +1,11 @@
+.git
+.venv
+logs
+__pycache__
+*.pyc
+.DS_Store
+.python-version
+README.md
+Dockerfile
+.dockerignore
+k8s

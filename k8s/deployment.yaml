@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spam-email-validation
+  labels:
+    app: spam-email-validation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spam-email-validation
+  template:
+    metadata:
+      labels:
+        app: spam-email-validation
+    spec:
+      containers:
+        - name: spam-email-validation
+          image: spamemailvalidationacr.azurecr.io/spam-email-validation:v1
+          ports:
+            - containerPort: 8501
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 500m
+              memory: 1Gi
+          readinessProbe:
+            httpGet:
+              path: /_stcore/health
+              port: 8501
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /_stcore/health
+              port: 8501
+            initialDelaySeconds: 20
+            periodSeconds: 20

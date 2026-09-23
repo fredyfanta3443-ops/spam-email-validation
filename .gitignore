@@ -31,3 +31,6 @@ Thumbs.db
 
 # Training artifacts (regenerate via training pipeline)
 outputs/
+
+# Claude Code local session state
+.claude/
