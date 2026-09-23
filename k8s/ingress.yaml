@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: spam-email-validation
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - spam-email-validation.eastus.cloudapp.azure.com
+      secretName: spam-email-validation-tls
+  rules:
+    - host: spam-email-validation.eastus.cloudapp.azure.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: spam-email-validation
+                port:
+                  number: 80
